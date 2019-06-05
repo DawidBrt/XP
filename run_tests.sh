@@ -3,7 +3,8 @@ echo "Information Board unit tests"
 echo "Compiling tests"
 cd tests
 for i in `find . -name '*.cpp'`; do
-    g++ $i -o "../output/$i.out"
+    echo $i
+    g++ -std=c++11 $i -o "../output/$i.out"
     echo "Compilation $i done"
 done
 echo "Compilation complete!"
