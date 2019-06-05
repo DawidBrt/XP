@@ -6,6 +6,7 @@ class Connector {
     private:  
         void wifiOpen(int wifiId);
         void homeWifi(int wifiId);
+        
         bool homeWiFi = false;
         char* homeSSID = nullptr;
         char* homePass = nullptr;
