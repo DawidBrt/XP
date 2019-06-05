@@ -1,6 +1,7 @@
 #include <ESP8266WiFi.h>
 #include "FS.h" // do zapisywania plików
 #include "class/PrepareResponse.cpp"
+#include "class/Logger.cpp"
 
 const char* homeSsid = "TestWIFIesp";
 const char* homePassword = "12345678";
@@ -34,13 +35,13 @@ void loop() {
 
     int numberOfNetworks = WiFi.scanNetworks();
     for(int i =0; i<numberOfNetworks; i++){
-        log.print("Network name: ");
-        log.println(WiFi.SSID(i));
-        log.print("Signal strength: ");
-        log.println(WiFi.RSSI(i));
+        Logger logger;
         if(WiFi.encryptionType(i) == ENC_TYPE_NONE){
-            log.println("network is not secured with password");
+            String s = logger.createLog(WiFi.SSID(i), WiFi.RSSI(i), false);
+        } else {
+            String s = logger.createLog(WiFi.SSID(i), WiFi.RSSI(i), true);
         }
+        log.println(s);
         log.println("-----------------------");
         if(WiFi.SSID(i) == homeSsid){
             homeWifiPresent = true;
